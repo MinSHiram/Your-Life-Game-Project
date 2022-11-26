@@ -38,6 +38,8 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         capsuleCollider = GetComponent<CapsuleCollider>();
         myRigid = GetComponent<Rigidbody>();
         applySpeed = walkSpeed;
@@ -47,13 +49,15 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        IsGround();
-        TryJump();
-        TryRun();
-        Move();
-        CameraRotation();
-        CharacterRotation();
-        
+        if (Cursor.visible == false)
+        {
+            IsGround();
+            TryJump();
+            TryRun();
+            Move();
+            CameraRotation();
+            CharacterRotation();
+        }
     }
 
 
