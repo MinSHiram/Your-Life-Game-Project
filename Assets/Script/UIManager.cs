@@ -6,8 +6,14 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject SubMenuImage, WindowImage, InventoryImage, WeaponInventoryImage;
+    public GameObject FistBtn, SwordBtn, GunBtn;
 
-    bool Sub, Wind, Inv, WeaponInv = false;
+    public Button[] OffButton;
+
+    bool Sub, Wind = false;
+
+    int Wea, ChangeInv = 0;
+
 
     void Start()
     {
@@ -28,15 +34,70 @@ public class UIManager : MonoBehaviour
     public void WindowOnOff()
     {
         Wind = !Wind;
-        InventoryImage.SetActive(Wind);
+        WindowImage.SetActive(Wind);
+        for (int i = 0; i < OffButton.Length; i++)
+        {
+            OffButton[i].interactable = !Wind;
+        }
+        
+    }
+
+    public void WindowOff()
+    {
+        Wind = !Wind;
+        WindowImage.SetActive(Wind);
     }
 
     public void ChangeInventory()
     {
-        Inv = !WeaponInv;
-        WeaponInv = !Inv;
-        InventoryImage.SetActive(Inv);
-        WeaponInventoryImage.SetActive(WeaponInv);
+        if (ChangeInv < 1)
+        {
+            ChangeInv++;
+        }
+        else
+        {
+            ChangeInv = 0;
+        }
+        if (ChangeInv == 0)
+        {
+            InventoryImage.SetActive(true);
+            WeaponInventoryImage.SetActive(false);
+        }
+        if (ChangeInv == 1)
+        {
+            InventoryImage.SetActive(false);
+            WeaponInventoryImage.SetActive(true);
+        }
+    }
+
+    public void WeaponChangeBtn()
+    {
+        if (Wea < 2)
+        {
+            Wea++;
+        }
+        else
+        {
+            Wea = 0;
+        }
+        if (Wea == 0)
+        {
+            FistBtn.SetActive(true);
+            SwordBtn.SetActive(false);
+            GunBtn.SetActive(false);
+        }
+        else if (Wea == 1)
+        {
+            FistBtn.SetActive(false);
+            SwordBtn.SetActive(true);
+            GunBtn.SetActive(false);
+        }
+        else if (Wea == 2)
+        {
+            FistBtn.SetActive(false);
+            SwordBtn.SetActive(false);
+            GunBtn.SetActive(true);
+        }
     }
 
     public void QuitBtn()
