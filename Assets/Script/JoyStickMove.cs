@@ -12,8 +12,10 @@ public class JoyStickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     [SerializeField] private GameObject go_Player;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float runSpeed;
 
     private bool isTouch = false;
+    private bool Speed = false;
     private Vector3 movePosition;
 
     // Start is called before the first frame update
@@ -31,6 +33,11 @@ public class JoyStickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         }
     }
 
+    public void Running()
+    {
+        Speed = true;
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 value = eventData.position - (Vector2)rect_Background.position;
@@ -39,7 +46,14 @@ public class JoyStickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         rect_JoyStick.localPosition = value;
 
         value = value.normalized;
-        movePosition = new Vector3(value.x * moveSpeed * Time.deltaTime, 0f, value.y * moveSpeed * Time.deltaTime);
+        if (Speed == false)
+        {
+            movePosition = new Vector3(value.x * moveSpeed * Time.deltaTime, 0f, value.y * moveSpeed * Time.deltaTime);
+        }
+        else if (Speed == true)
+        {
+            movePosition = new Vector3(value.x * runSpeed * Time.deltaTime, 0f, value.y * runSpeed * Time.deltaTime);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -50,6 +64,7 @@ public class JoyStickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerUp(PointerEventData eventData)
     {
         isTouch = false;
+        Speed = false;
         rect_JoyStick.localPosition = Vector3.zero;
     }
 }
