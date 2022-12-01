@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject SubMenuImage, WindowImage, InventoryImage, WeaponInventoryImage;
+    public GameObject SubMenuImage, WindowImage, InventoryImage, WeaponInventoryImage, ExitImage;
     public GameObject FistBtn, SwordBtn, GunBtn;
 
     public Button[] OffButton;
@@ -13,17 +14,6 @@ public class UIManager : MonoBehaviour
     bool Sub, Wind = false;
 
     int Wea, ChangeInv = 0;
-
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void SubOnOff()
     {
@@ -98,6 +88,26 @@ public class UIManager : MonoBehaviour
             SwordBtn.SetActive(false);
             GunBtn.SetActive(true);
         }
+    }
+
+    public void ExitImageOnBtn()
+    {
+        ExitImage.SetActive(true);
+    }
+
+    public void ExitImageOffBtn()
+    {
+        ExitImage.SetActive(false);
+    }
+
+    public void ExitBtn()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void StartBtn()
+    {
+        SceneManager.LoadScene("Game");
     }
 
     public void QuitBtn()
